@@ -1,0 +1,12 @@
+# Auto-detect text files, normalize to LF in repo
+* text=auto
+
+# Gradle wrapper: Linux/macOS script must be LF
+/gradlew text eol=lf
+
+# Windows batch scripts must be CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files: never touch
+*.jar binary
