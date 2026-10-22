@@ -1,4 +1,4 @@
-package com.jjtutti.task_tracker;
+package com.jjtutti.tasktracker;
 
 import org.springframework.boot.SpringApplication;
 
