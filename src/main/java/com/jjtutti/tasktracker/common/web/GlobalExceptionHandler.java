@@ -1,6 +1,7 @@
 package com.jjtutti.tasktracker.common.web;
 
 import com.jjtutti.tasktracker.auth.infra.exception.EmailAlreadyExistsException;
+import com.jjtutti.tasktracker.auth.infra.exception.InvalidCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.ErrorResponse;
@@ -21,6 +22,12 @@ public class GlobalExceptionHandler {
         return ErrorResponse.create(ex, HttpStatus.CONFLICT, ex.getMessage());
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleInvalidCredentials(InvalidCredentialsException ex) {
+       return ErrorResponse.create(ex, HttpStatus.UNAUTHORIZED, ex.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
@@ -30,4 +37,11 @@ public class GlobalExceptionHandler {
         problemDetail.setProperty("errorFields", errorFields);
         return ErrorResponse.builder(ex, problemDetail).build();
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleAllUnhandled(Exception ex) {
+        return ErrorResponse.create(ex, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+    }
+
 }

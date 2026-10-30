@@ -10,3 +10,8 @@ spring:
 
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
+
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
